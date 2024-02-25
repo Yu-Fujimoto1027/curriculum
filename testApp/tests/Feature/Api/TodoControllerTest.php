@@ -37,7 +37,7 @@ class TodoControllerTest extends TestCase
         $this->assertEquals($params['content'], $todo->content);
     }
 
-    public function Todoの新規作成失敗()
+    public function パラメータが空によるTodoの新規作成失敗()
     {
         $params = [
             'title' => 'テスト:タイトル',
@@ -99,7 +99,7 @@ class TodoControllerTest extends TestCase
         $this->assertSame($todo->content, $data['content']);
     }
 
-    public function Todoの詳細取得失敗()
+    public function 存在しないTodoの詳細取得失敗()
     {
         
         $todo = Todo::factory()->create();
@@ -121,7 +121,7 @@ class TodoControllerTest extends TestCase
 
     }
     
-    public function Todoの削除失敗()
+    public function 存在しないTodoの削除失敗()
     {
 
         $todo = Todo::factory()->create();

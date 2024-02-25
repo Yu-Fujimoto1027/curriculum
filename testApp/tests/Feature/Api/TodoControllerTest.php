@@ -45,15 +45,7 @@ class TodoControllerTest extends TestCase
         ];
 
         $res = $this->postJson(route('api.todo.create'), []);
-        $res->assertOk();
-        $todos = Todo::all();
-
-        $this->assertCount(1, $todos);
-
-        $todo = $todos->first();
-
-        $this->assertEquals($params['title'], $todo->title);
-        $this->assertEquals($params['content'], $todo->content);
+        $res->assertStatus(404);
 
     }
 
@@ -89,15 +81,7 @@ class TodoControllerTest extends TestCase
 
         $id = Todo::factory()->create();
         $res = $this->patchJson(route('api.todo.update', ['id' => $id]), []);
-        $res->assertOk();
-        $todos = Todo::all();
-
-        $this->assertCount(1, $todos);
-
-        $todo = $todos->first();
-
-        $this->assertEquals($params['title'], $todo->title);
-        $this->assertEquals($params['content'], $todo->content);
+        $res->assertStatus(404);
 
     }
   
@@ -121,12 +105,7 @@ class TodoControllerTest extends TestCase
         $todo = Todo::factory()->create();
         $id = $todo->id;
         $res = $this->getJson(route('api.todo.show', ['id' => $id + 1]));
-        $res->assertOk();
-
-        $data = $res->json();
-
-        $this->assertSame($todo->title, $data['title']);
-        $this->assertSame($todo->content, $data['content']);
+        $res->assertStatus(422);
     }
 
     public function Todoの削除()
@@ -148,10 +127,7 @@ class TodoControllerTest extends TestCase
         $todo = Todo::factory()->create();
         $id = $todo->id;
         $res = $this->deleteJson(route('api.todo.destroy', ['id' => $id + 1]));
-        $res->assertOk();
-        $todos = Todo::all();
-
-        $this->assertNull(Todo::find($id));
+        $res->assertStatus(422);
 
     }
 }

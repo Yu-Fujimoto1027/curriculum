@@ -39,10 +39,6 @@ class TodoControllerTest extends TestCase
 
     public function パラメータが空によるTodoの新規作成失敗()
     {
-        $params = [
-            'title' => 'テスト:タイトル',
-            'content' => 'テスト:内容'
-        ];
 
         $res = $this->postJson(route('api.todo.create'), []);
         $res->assertStatus(404);
@@ -74,11 +70,6 @@ class TodoControllerTest extends TestCase
     public function Todoの更新失敗()
     {
         
-        $params = [
-            'title' => 'テスト:タイトル',
-            'content' => 'テスト:内容'
-        ];
-
         $id = Todo::factory()->create();
         $res = $this->patchJson(route('api.todo.update', ['id' => $id]), []);
         $res->assertStatus(404);
@@ -127,7 +118,7 @@ class TodoControllerTest extends TestCase
         $todo = Todo::factory()->create();
         $id = $todo->id;
         $res = $this->deleteJson(route('api.todo.destroy', ['id' => $id + 1]));
-        $res->assertStatus(422);
+        $res->assertStatus(404);
 
     }
 }

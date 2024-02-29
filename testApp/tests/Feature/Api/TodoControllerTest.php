@@ -41,7 +41,7 @@ class TodoControllerTest extends TestCase
     {
 
         $res = $this->postJson(route('api.todo.create'), []);
-        $res->assertStatus(404);
+        $res->assertStatus(422);
 
     }
 
@@ -72,7 +72,7 @@ class TodoControllerTest extends TestCase
         
         $id = Todo::factory()->create();
         $res = $this->patchJson(route('api.todo.update', ['id' => $id]), []);
-        $res->assertStatus(404);
+        $res->assertStatus(422);
 
     }
   
@@ -96,7 +96,7 @@ class TodoControllerTest extends TestCase
         $todo = Todo::factory()->create();
         $id = $todo->id;
         $res = $this->getJson(route('api.todo.show', ['id' => $id + 1]));
-        $res->assertStatus(422);
+        $res->assertStatus(404);
     }
 
     public function Todoの削除()

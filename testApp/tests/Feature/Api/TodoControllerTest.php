@@ -106,7 +106,6 @@ class TodoControllerTest extends TestCase
         $id = $todo->id;
         $res = $this->deleteJson(route('api.todo.destroy', ['id' => $id]));
         $res->assertOk();
-        $todos = Todo::all();
 
         $this->assertNull(Todo::find($id));
 

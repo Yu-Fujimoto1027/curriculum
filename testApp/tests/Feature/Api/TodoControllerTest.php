@@ -18,7 +18,7 @@ class TodoControllerTest extends TestCase
     /**
      * @test
      */
-    public function Todoの新規作成()
+    public function test_Todoの新規作成()
     {
         $params = [
             'title' => 'テスト:タイトル',
@@ -37,7 +37,7 @@ class TodoControllerTest extends TestCase
         $this->assertEquals($params['content'], $todo->content);
     }
 
-    public function パラメータが空によるTodoの新規作成失敗()
+    public function test_パラメータが空によるTodoの新規作成失敗()
     {
 
         $res = $this->postJson(route('api.todo.create'), []);
@@ -45,7 +45,7 @@ class TodoControllerTest extends TestCase
 
     }
 
-    public function Todoの更新()
+    public function test_Todoの更新()
     {
         
         $params = [
@@ -67,7 +67,7 @@ class TodoControllerTest extends TestCase
 
     }
 
-    public function Todoの更新失敗()
+    public function test_Todoの更新失敗()
     {
         
         $id = Todo::factory()->create();
@@ -76,7 +76,7 @@ class TodoControllerTest extends TestCase
 
     }
   
-    public function Todoの詳細取得()
+    public function test_Todoの詳細取得()
     {
         
         $todo = Todo::factory()->create();
@@ -90,7 +90,7 @@ class TodoControllerTest extends TestCase
         $this->assertSame($todo->content, $data['content']);
     }
 
-    public function 存在しないTodoの詳細取得失敗()
+    public function test_存在しないTodoの詳細取得失敗()
     {
         
         $todo = Todo::factory()->create();
@@ -99,7 +99,7 @@ class TodoControllerTest extends TestCase
         $res->assertStatus(404);
     }
 
-    public function Todoの削除()
+    public function test_Todoの削除()
     {
 
         $todo = Todo::factory()->create();
@@ -112,7 +112,7 @@ class TodoControllerTest extends TestCase
 
     }
     
-    public function 存在しないTodoの削除失敗()
+    public function test_存在しないTodoの削除失敗()
     {
 
         $todo = Todo::factory()->create();

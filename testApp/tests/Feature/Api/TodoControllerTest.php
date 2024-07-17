@@ -37,9 +37,15 @@ class TodoControllerTest extends TestCase
         $this->assertEquals($params['content'], $todo->content);
     }
 
+<<<<<<< HEAD
     public function test_パラメータが空によるTodoの新規作成失敗()
     {
 
+=======
+    public function test_Todoの新規作成失敗()
+    {
+        
+>>>>>>> 1b5957b (20240717更新分)
         $res = $this->postJson(route('api.todo.create'), []);
         $res->assertStatus(422);
 
@@ -69,7 +75,11 @@ class TodoControllerTest extends TestCase
 
     public function test_Todoの更新失敗()
     {
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 1b5957b (20240717更新分)
         $id = Todo::factory()->create();
         $res = $this->patchJson(route('api.todo.update', ['id' => $id]), []);
         $res->assertStatus(422);
@@ -90,7 +100,11 @@ class TodoControllerTest extends TestCase
         $this->assertSame($todo->content, $data['content']);
     }
 
+<<<<<<< HEAD
     public function test_存在しないTodoの詳細取得失敗()
+=======
+    public function test_Todoの詳細取得失敗()
+>>>>>>> 1b5957b (20240717更新分)
     {
         
         $todo = Todo::factory()->create();
@@ -111,7 +125,11 @@ class TodoControllerTest extends TestCase
 
     }
     
+<<<<<<< HEAD
     public function test_存在しないTodoの削除失敗()
+=======
+    public function test_Todoの削除失敗()
+>>>>>>> 1b5957b (20240717更新分)
     {
 
         $todo = Todo::factory()->create();

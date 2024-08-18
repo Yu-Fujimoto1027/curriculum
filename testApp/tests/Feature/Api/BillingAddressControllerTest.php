@@ -21,23 +21,22 @@ class BillingAddressControllerTest extends TestCase
      */
     public function test_請求先情報の登録()
     {
-        $company = \App\Models\Company::factory()->create();
+        $company = Company::factory()->create();
     
         $params = [
             'name1' => 'テスト：会社名',
             'name1Kana' => 'テスト：会社名（かな）',
             'address' => 'テスト：住所',
             'tel' => '1234567890',
-            'depertment' => 'テスト：部署名',
+            'depertment' => 'テスト：部署名', 
             'name2' => 'テスト：代表者名',
             'name2Kana' => 'テスト：代表者名（かな）',
             'company_id' => $company->id,
         ];
-    
+        
         $res = $this->postJson(route('api.billing_address.create'), $params);
-        $res->assertOk();
+        $res->assertStatus(201);
         $billing_address = \App\Models\BillingAddress::where('company_id', $company->id)->first();
-
         $this->assertEquals($params['name1'], $billing_address->name1);
         $this->assertEquals($params['name1Kana'], $billing_address->name1Kana);
         $this->assertEquals($params['address'], $billing_address->address);
@@ -50,10 +49,9 @@ class BillingAddressControllerTest extends TestCase
 
     public function test_請求先情報の更新()
     {
-        $billing_address = \App\Models\BillingAddress::factory()->create();
+        $billing_address = BillingAddress::factory()->create();
     
         $params = [
-            'user_id' => '1',
             'name1' => 'テスト：会社名',
             'name1Kana' => 'テスト：会社名（かな）',
             'address' => 'テスト：住所',
@@ -66,7 +64,7 @@ class BillingAddressControllerTest extends TestCase
         $res = $this->patchJson(route('api.billing_address.update', ['billing_address' => $billing_address->id]), $params);
         $res->assertOk();
     
-        $updatedBillingAddress = \App\Models\BillingAddress::findOrFail($billing_address->id);
+        $updatedBillingAddress = BillingAddress::findOrFail($billing_address->id);
     
         $this->assertEquals($params['name1'], $updatedBillingAddress->name1);
         $this->assertEquals($params['name1Kana'], $updatedBillingAddress->name1Kana);
@@ -76,8 +74,6 @@ class BillingAddressControllerTest extends TestCase
         $this->assertEquals($params['name2'], $updatedBillingAddress->name2);
         $this->assertEquals($params['name2Kana'], $updatedBillingAddress->name2Kana);
     }
-    
-    
 
     public function test_請求先情報の詳細取得()
     {

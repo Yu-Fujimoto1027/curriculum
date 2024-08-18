@@ -21,22 +21,21 @@ class CompanyControllerTest extends TestCase
     public function test_会社情報の登録()
     {
         $params = [
-            'name1' => 'テスト：会社名',
-            'name1Kana' => 'テスト：会社名（かな）',
-            'address' => 'テスト：住所',
+            'name1' => 'テスト会社名',
+            'name1Kana' => 'テスト会社名かな',
+            'address' => 'テスト住所',
             'tel' => '1234567890',
-            'name2' => 'テスト：代表者名',
-            'name2Kana' => 'テスト：代表者名（かな）',
+            'name2' => 'テスト代表者名',
+            'name2Kana' => 'テスト代表者名かな',
         ];
 
-        $res = $this->postJson(route('api.company.create'), $params);
-        $res->assertOk();
-        $Companies = Company::all();
+        $response = $this->postJson(route('api.company.create'), $params);
+        $response->assertStatus(201);
 
-        $this->assertCount(1, $Companies);
+        $companies = Company::all();
+        $this->assertCount(1, $companies);
 
-        $company = $Companies->first();
-
+        $company = $companies->first();
         $this->assertEquals($params['name1'], $company->name1);
         $this->assertEquals($params['name1Kana'], $company->name1Kana);
         $this->assertEquals($params['address'], $company->address);
@@ -44,6 +43,7 @@ class CompanyControllerTest extends TestCase
         $this->assertEquals($params['name2'], $company->name2);
         $this->assertEquals($params['name2Kana'], $company->name2Kana);
     }
+
 
     public function 会社請情報の取得()
     {

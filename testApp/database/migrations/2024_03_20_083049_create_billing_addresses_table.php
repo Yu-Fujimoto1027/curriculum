@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('billing_addresses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('company_id'); 
+            $table->unsignedBigInteger('company_id')->default(1); 
             $table->string('name1')->nullable(); 
             $table->string('name1Kana');
             $table->string('address');

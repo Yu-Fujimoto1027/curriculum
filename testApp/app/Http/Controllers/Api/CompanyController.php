@@ -24,7 +24,7 @@ class CompanyController extends Controller
     {
         $validated = $request->validated();
         $this->company->fill($validated)->save();
-        return ['message' => 'ok'];
+        return response()->json(['message' => 'ok'], 201);
     }
 
     /**
@@ -44,26 +44,25 @@ class CompanyController extends Controller
     /**
      * Show
      *
+     * @param \App\Models\Company $company
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Company $company)
     {
-        $company = Company::findOrFail($id);
         return response()->json($company);
     }
+
 
     /**
      * Destroy
      *
+     * @param \App\Models\Company $company
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Company $company)
     {
-        $company = Company::findOrFail($id);
         $company->delete();
-        return ['message' => 'ok'];
+        return response()->json(['message' => 'ok']);
     }
-
-
 
 }

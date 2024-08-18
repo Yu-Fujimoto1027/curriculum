@@ -7,54 +7,46 @@ use App\Models\BillingAddress;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BillingAddressRequest;
+use App\Services\BillingAddressService;
+use Illuminate\Http\JsonResponse;
 
 class BillingAddressController extends Controller
 {
-    public function __construct(
-      private BillingAddress $billing_address
-    ) {}
+    protected $billingAddressService;
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct(BillingAddressService $billingAddressService)
+    {
+        $this->billingAddressService = $billingAddressService;
+    }
+
     public function store(Request $request)
     {
-        $request->validate([
+
+        $validated = $request->validate([
             'company_id' => 'required|exists:companies,id',
+            'name1' => 'nullable|string|max:255',
+            'name1Kana' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'tel' => 'required|string|max:255',
+            'depertment' => 'required|string|max:255',
+            'name2' => 'required|string|max:255',
+            'name2Kana' => 'required|string|max:255',
         ]);
-    
-        $billingAddress = new BillingAddress();
-        $billingAddress->name1 = $request->input('name1');
-        $billingAddress->name1Kana = $request->input('name1Kana');
-        $billingAddress->address = $request->input('address');
-        $billingAddress->tel = $request->input('tel');
-        $billingAddress->depertment = $request->input('depertment');
-        $billingAddress->name2 = $request->input('name2');
-        $billingAddress->name2Kana = $request->input('name2Kana');
-        $billingAddress->company_id = $request->input('company_id'); 
-    
+        
+        $billingAddress = BillingAddress::fromRequest($request);
         $billingAddress->save();
-    
-        return response()->json($billingAddress, 200);
+        return response()->json($billingAddress, 201);
     }
     
     
-
-    /**
-     * Update
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(BillingAddressRequest $request, int $id)
     {
         $validated = $request->validated();
-        $this->billing_address->findOrFail($id)->update($validated);
-        return ['message' => 'ok'];
+        
+        $billingAddress = BillingAddress::findOrFail($id);
+        $billingAddress->update($validated);
+        
+        return response()->json(['message' => 'ok'], 200);
     }
 
     /**

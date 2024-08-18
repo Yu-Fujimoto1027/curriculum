@@ -29,8 +29,8 @@ class CompanyControllerTest extends TestCase
             'name2Kana' => 'テスト代表者名かな',
         ];
 
-        $response = $this->postJson(route('api.company.create'), $params);
-        $response->assertStatus(201);
+        $res = $this->postJson(route('api.company.create'), $params);
+        $res->assertStatus(201);
 
         $companies = Company::all();
         $this->assertCount(1, $companies);

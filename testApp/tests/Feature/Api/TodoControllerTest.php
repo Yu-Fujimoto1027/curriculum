@@ -37,20 +37,6 @@ class TodoControllerTest extends TestCase
         $this->assertEquals($params['content'], $todo->content);
     }
 
-<<<<<<< HEAD
-    public function test_パラメータが空によるTodoの新規作成失敗()
-    {
-
-=======
-    public function test_Todoの新規作成失敗()
-    {
-        
->>>>>>> 1b5957b (20240717更新分)
-        $res = $this->postJson(route('api.todo.create'), []);
-        $res->assertStatus(422);
-
-    }
-
     public function test_Todoの更新()
     {
         

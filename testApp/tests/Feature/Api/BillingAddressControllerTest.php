@@ -28,12 +28,12 @@ class BillingAddressControllerTest extends TestCase
             'name1Kana' => 'テスト：会社名（かな）',
             'address' => 'テスト：住所',
             'tel' => '1234567890',
-            'depertment' => 'テスト：部署名', 
+            'depertment' => 'テスト：部署名',
             'name2' => 'テスト：代表者名',
             'name2Kana' => 'テスト：代表者名（かな）',
             'company_id' => $company->id,
         ];
-        
+    
         $res = $this->postJson(route('api.billing_address.create'), $params);
         $res->assertStatus(201);
         $billing_address = \App\Models\BillingAddress::where('company_id', $company->id)->first();
@@ -45,6 +45,7 @@ class BillingAddressControllerTest extends TestCase
         $this->assertEquals($params['name2'], $billing_address->name2);
         $this->assertEquals($params['name2Kana'], $billing_address->name2Kana);
     }
+    
     
 
     public function test_請求先情報の更新()

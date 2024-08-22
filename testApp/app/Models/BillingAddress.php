@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class BillingAddress extends Model
 {
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
     use HasFactory;
 
         /**
@@ -19,19 +25,5 @@ class BillingAddress extends Model
      * @var array
      */
     protected $dates = ['created_at', 'updated_at'];
-
-    public static function fromRequest(Request $request): self
-    {
-        return new self($request->only([
-            'company_id',
-            'name1',
-            'name1Kana',
-            'address',
-            'tel',
-            'depertment',
-            'name2',
-            'name2Kana'
-        ]));
-    }
 
 }

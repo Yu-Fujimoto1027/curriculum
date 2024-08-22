@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class Company extends Model
 {
+
+    public function billingAddresses()
+    {
+        return $this->hasMany(BillingAddress::class);
+    }
+
     use HasFactory;
 
         /**

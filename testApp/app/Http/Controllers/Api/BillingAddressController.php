@@ -19,6 +19,7 @@ class BillingAddressController extends Controller
         $this->billingAddressService = $billingAddressService;
     }
 
+
     public function store(Request $request)
     {
 
@@ -32,9 +33,8 @@ class BillingAddressController extends Controller
             'name2' => 'required|string|max:255',
             'name2Kana' => 'required|string|max:255',
         ]);
-        
-        $billingAddress = BillingAddress::fromRequest($request);
-        $billingAddress->save();
+
+        $billingAddress = $this->billingAddressService->createBillingAddress($validated);
         return response()->json($billingAddress, 201);
     }
     

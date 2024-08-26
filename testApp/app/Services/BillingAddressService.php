@@ -12,11 +12,9 @@ class BillingAddressService
 {
     public function createBillingAddress(array $data): BillingAddress
     {
-        return DB::transaction(function () use ($data) {
-            $billingAddress = new BillingAddress($data);
-            $billingAddress->save();
+        $billingAddress = new BillingAddress($data);
+        $billingAddress->save();
 
-            return $billingAddress;
-        });
+        return $billingAddress;
     }
 }

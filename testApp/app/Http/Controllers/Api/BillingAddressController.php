@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api;
 
 use App\Models\BillingAddress;
+use App\Models\Company; 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BillingAddressRequest;
@@ -23,8 +24,10 @@ class BillingAddressController extends Controller
     public function store(Request $request)
     {
 
+        $companyId = $request->input('company_id');
+        $company = Company::findOrFail($companyId);
+
         $validated = $request->validate([
-            'company_id' => 'required|exists:companies,id',
             'name1' => 'nullable|string|max:255',
             'name1Kana' => 'required|string|max:255',
             'address' => 'required|string|max:255',
@@ -34,6 +37,7 @@ class BillingAddressController extends Controller
             'name2Kana' => 'required|string|max:255',
         ]);
 
+        $validated['company_id'] = $company->id;
         $billingAddress = $this->billingAddressService->createBillingAddress($validated);
         return response()->json($billingAddress, 201);
     }

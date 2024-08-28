@@ -4,6 +4,7 @@ namespace Tests\Feature\Api;
 
 use App\Models\BillingAddress;
 use App\Models\Company;
+use App\Services\BillingAddressService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 

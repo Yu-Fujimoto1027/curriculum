@@ -52,6 +52,7 @@ class BillingAddressControllerTest extends TestCase
     public function test_請求先情報の更新()
     {
         $billing_address = BillingAddress::factory()->create();
+        $company = Company::factory()->create();
     
         $params = [
             'name1' => 'テスト：会社名',
@@ -61,11 +62,11 @@ class BillingAddressControllerTest extends TestCase
             'depertment' => 'テスト：部署名',
             'name2' => 'テスト：代表者名',
             'name2Kana' => 'テスト：代表者名（かな）',
+            'company_id' => $company->id,
         ];
     
         $res = $this->patchJson(route('api.billing_address.update', ['billing_address' => $billing_address->id]), $params);
         $res->assertOk();
-    
         $updatedBillingAddress = BillingAddress::findOrFail($billing_address->id);
     
         $this->assertEquals($params['name1'], $updatedBillingAddress->name1);
@@ -75,6 +76,7 @@ class BillingAddressControllerTest extends TestCase
         $this->assertEquals($params['depertment'], $updatedBillingAddress->depertment);
         $this->assertEquals($params['name2'], $updatedBillingAddress->name2);
         $this->assertEquals($params['name2Kana'], $updatedBillingAddress->name2Kana);
+        $this->assertEquals($params['company_id'], $updatedBillingAddress->company_id);
     }
 
     public function test_請求先情報の詳細取得()

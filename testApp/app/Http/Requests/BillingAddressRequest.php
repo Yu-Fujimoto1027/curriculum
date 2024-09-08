@@ -21,6 +21,7 @@ class BillingAddressRequest extends FormRequest
             'depertment' => 'required|string|max:255',
             'name2' => 'required|string|max:255',
             'name2Kana' => 'required|string|max:255',
+            'company_id' => 'required|exists:companies,id',
         ];
     }
 }

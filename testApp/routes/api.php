@@ -32,7 +32,8 @@ Route::get('company/{company}', [CompanyController::class, 'show'])->name('api.c
 Route::delete('company/{company}', [CompanyController::class, 'destroy'])->name('api.company.destroy');
 Route::post('company/{id}-with-billing_addresses', [CompanyController::class, 'showWithBilling_addresses'])->name('api.company.create.with_billing_addresses');
 
-Route::post('/billing_addresses', [BillingAddressController::class, 'store'])->name('api.billing_address.create');
+Route::post('/company/{companyId}/billing_addresses', [BillingAddressController::class, 'store'])
+    ->name('api.billing_address.create');
 Route::patch('billing_address/{billing_address}', [BillingAddressController::class, 'update'])->name('api.billing_address.update');
 Route::get('billing_address/{billing_address}', [BillingAddressController::class, 'show'])->name('api.billing_address.show');
 Route::delete('billing_address/{billing_address}', [BillingAddressController::class, 'destroy'])->name('api.billing_address.destroy');

@@ -35,9 +35,10 @@ class BillingAddressControllerTest extends TestCase
             'company_id' => $company->id,
         ];
     
-        $res = $this->postJson(route('api.billing_address.create'), $params);
+        $res = $this->postJson(route('api.billing_address.create', ['companyId' => $company->id]), $params);
         $res->assertStatus(201);
         $billing_address = \App\Models\BillingAddress::where('company_id', $company->id)->first();
+    
         $this->assertEquals($params['name1'], $billing_address->name1);
         $this->assertEquals($params['name1Kana'], $billing_address->name1Kana);
         $this->assertEquals($params['address'], $billing_address->address);
@@ -46,6 +47,7 @@ class BillingAddressControllerTest extends TestCase
         $this->assertEquals($params['name2'], $billing_address->name2);
         $this->assertEquals($params['name2Kana'], $billing_address->name2Kana);
     }
+    
     
     
 

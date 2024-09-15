@@ -21,15 +21,12 @@ class BillingAddressController extends Controller
     }
 
 
-    public function store(BillingAddressRequest $request)
+    public function store(BillingAddressRequest $request, $companyId)
     {
         $validated = $request->validated();
-        $companyId = $validated['company_id']; 
         $company = Company::findOrFail($companyId);
-    
-        $validated['company_id'] = $company->id;
-    
-        $billingAddress = $this->billingAddressService->createBillingAddress($validated);
+        $billingAddress = $company->billingAddresses()->create($validated);
+        
         return response()->json($billingAddress, 201);
     }
     
